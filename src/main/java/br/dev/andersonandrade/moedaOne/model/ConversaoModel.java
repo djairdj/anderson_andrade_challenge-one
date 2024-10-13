@@ -17,11 +17,7 @@ public class ConversaoModel {
 
     Optional<MoedaRecord> moedaAConverter = ConexaoModel.buscaValoreMoedas(origem, destino);
 
-    if(moedaAConverter.isPresent()) {
-      return Optional.of(new Cambio(quantidade, moedaAConverter.get()));
-    }
-
-    return Optional.empty();
+    return moedaAConverter.map(moedaRecord -> new Cambio(quantidade, moedaRecord));
   }
 
 }
