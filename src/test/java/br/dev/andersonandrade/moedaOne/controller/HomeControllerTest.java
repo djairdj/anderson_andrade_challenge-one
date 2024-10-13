@@ -1,8 +1,9 @@
 package br.dev.andersonandrade.moedaOne.controller;
 
 import br.dev.andersonandrade.moedaOne.enuns.Moeda;
-import org.junit.jupiter.api.Test;
 import br.dev.andersonandrade.moedaOne.model.ConexaoModel;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -11,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class HomeControllerTest {
 
-    public HomeControllerTest() {
-    }
+  public HomeControllerTest() {
+  }
 
-    @Test
-    public void testaConexaoComAPI(){
+  @Test
+  public void testaConexaoComAPI() {
 
-        var sucesso = ConexaoModel.buscaValoreMoedas(Moeda.ARS,Moeda.BRL);
-        assertTrue(true);
-    }
+    var sucesso = ConexaoModel.buscaValoreMoedas(Moeda.ARS, Moeda.BRL);
+    assertTrue(sucesso.isPresent());
+  }
 }

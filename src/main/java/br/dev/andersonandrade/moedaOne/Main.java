@@ -13,14 +13,15 @@ import java.util.Optional;
  */
 
 public class Main {
-    public static void main(String[] args) {
-        ConversaoModel conversao = new ConversaoModel();
-        Optional<Cambio> cambio = conversao.converter(BigDecimal.valueOf(130), Moeda.USD, Moeda.BRL);
+  public static void main(String[] args) {
+    ConversaoModel conversao = new ConversaoModel();
+    Optional<Cambio> cambio = conversao.converter(BigDecimal.valueOf(130), Moeda.USD, Moeda.BRL);
 
-        if(cambio.isPresent()){
-            System.out.println(cambio.get().getQuantidadeMoedasDestino());
-        }else{
-            System.out.println("Erro!");
-        }
+    if(cambio.isPresent()) {
+      System.out.println(cambio.get().getQuantidadeMoedasDestino());
+    } else {
+      System.out.println("Erro!");
     }
+  }
+
 }
