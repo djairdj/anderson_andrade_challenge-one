@@ -6,7 +6,10 @@ import br.dev.andersonandrade.moedaOne.uteis.ConversorDatas;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -89,6 +92,47 @@ public class Cambio {
   public BigDecimal getQuantidadeMoedasDestino() {
     return quantidadeMoedasDestino.setScale(2, RoundingMode.HALF_DOWN);
   }
+
+  /**
+   * Obtém a quantidade de moedas de origem recebidas após a conversão convertida para um formato melhor.
+   *
+   * @return Uma String representando a quantidade de moedas de destino.
+   */
+  public String getQuantidadeMoedasOrigemToString() {
+    return formatToString(quantidadeMoedasOrigem.setScale(2, RoundingMode.HALF_DOWN), this.origem.getPais());
+  }
+
+  /**
+   * Obtém a quantidade de moedas de destino recebidas após a conversão convertida para um formato melhor.
+   *
+   * @return Uma String representando a quantidade de moedas de destino.
+   */
+  public String getQuantidadeMoedasDestinoToString() {
+    return formatToString(quantidadeMoedasDestino.setScale(2, RoundingMode.HALF_DOWN), this.destino.getPais());
+  }
+
+  /**
+   * @param valor Valor que será convertido para String com formato melhor
+   * @param pais Nome do país correspondente da moeda, seja origem, seja destino
+   * @return Uma String correspondente a conversão monetária formatada com padrão formatado
+   */
+  private String formatToString(BigDecimal valor, String pais) {
+    // Definir o padrão de formatação (sem o símbolo de moeda)
+    String pattern = "#,##0.00";
+    DecimalFormat stringFormat = new DecimalFormat(pattern);
+    if(pais.equalsIgnoreCase("Brasil")) {
+      DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.of("pt", "BR"));
+      symbols.setGroupingSeparator('.');
+      symbols.setDecimalSeparator(',');
+      // Criar o DecimalFormat com o padrão definido
+      stringFormat = new DecimalFormat(pattern, symbols);
+      stringFormat.setGroupingUsed(true);
+    }
+
+    // Formatar o valor
+    return stringFormat.format(valor);
+  }
+
 
   /**
    * Valida se a quantidade de moedas de origem é positiva.

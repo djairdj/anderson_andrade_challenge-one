@@ -59,14 +59,18 @@ public class Principal extends JFrame {
               "Insira uma quantidade de moedas para conversão!");
           fTquantidadeMoeda.requestFocusInWindow();
         } else {
-          BigDecimal quantidadeMoeda = new BigDecimal(fTquantidadeMoeda.getText().replace(".", "").replace(",", "."));
+          BigDecimal quantidadeMoeda = new BigDecimal(fTquantidadeMoeda.getText().replace(",", ""));
           Moeda moedaOrigem = Moeda.buscarPorCodigo(comboBox2.getSelectedItem().toString());
           Moeda moedadDestino = Moeda.buscarPorCodigo(comboBox1.getSelectedItem().toString());
           Optional<Cambio> cambio = conversaoModel.converter(quantidadeMoeda, moedaOrigem, moedadDestino);
           cambio.ifPresent(c -> {
-            jLValorConvertido.setText(moedadDestino.getPais() + " : " + c.getQuantidadeMoedasDestino().toString());
-            jLDataTransacao.setText("Data Transação: " + c.getDataTransacao().format(DateTimeFormatter.ofPattern("dd-MM-YYYY")).toString());
-            jLValorOrigem.setText(moedaOrigem.getPais() + " : " + c.getQuantidadeMoedasOrigem().toString());
+            jLValorConvertido.setText(
+                moedadDestino.getPais() + " : " + moedadDestino.getSimbolo() + " "+
+                c.getQuantidadeMoedasDestinoToString());
+            jLDataTransacao.setText("Data Transação: " + c.getDataTransacao().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            jLValorOrigem.setText(
+                moedaOrigem.getPais() + " : "+ moedaOrigem.getSimbolo() + " " +
+                c.getQuantidadeMoedasOrigemToString());
           });
         }
       }
