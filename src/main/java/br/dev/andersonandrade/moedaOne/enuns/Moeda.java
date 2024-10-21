@@ -93,12 +93,11 @@ public enum Moeda {
   }
 
   public static Moeda buscarPorCodigo(String codigo) {
-    for(Moeda moeda : Moeda.values()) {
-      if(moeda.name().equalsIgnoreCase(codigo)) {
-        return moeda;
-      }
+    try{
+      return Moeda.valueOf(codigo.toUpperCase());
+    }catch(IllegalArgumentException a){
+      throw new IllegalArgumentException("Moeda não encontrada: " + codigo);
     }
-    throw new IllegalArgumentException("Moeda não encontrada: " + codigo);
   }
 
   public String getSimbolo() {

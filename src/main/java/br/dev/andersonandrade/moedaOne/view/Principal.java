@@ -91,8 +91,9 @@ public class Principal extends JFrame {
   }
 
   private void init() {
-    comboBox1.setModel(new DefaultComboBoxModel<>(convertMoedaEmString()));
-    comboBox2.setModel(new DefaultComboBoxModel<>(convertMoedaEmString()));
+    String[] siglas = convertMoedaEmString();
+    comboBox1.setModel(new DefaultComboBoxModel<>(siglas));
+    comboBox2.setModel(new DefaultComboBoxModel<>(siglas));
     jLNomeMoedaDestino.setText(Moeda.buscarPorCodigo(comboBox1.getSelectedItem().toString()).getNome());
     jLNomeMoedaOrigem.setText(Moeda.buscarPorCodigo(comboBox2.getSelectedItem().toString()).getNome());
     configurarInputMoeda();
